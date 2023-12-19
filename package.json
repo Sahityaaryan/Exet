@@ -36,7 +36,7 @@
          "type":"object",
           "default":  {
             ".cpp":"cd @dir && (if not exist exetFiles mkdir exetFiles) & g++ @fileName -o exetFiles/@fileNameWithoutExt && @dir\/exetFiles\/@fileNameWithoutExt",
-            ".java": "cd @dir && javac @fileName && java @fileNameWithoutExt",
+            ".java":  "cd @dir &&  (if not exist exetClasses mkdir exetClasses) & javac -d exetClasses @fileName && java -classpath exetClasses @fileNameWithoutExt",
             ".c": "cd @dir && (if not exist exetFiles mkdir exetFiles) & gcc @fileName -o exetFiles/@fileNameWithoutExt && @dir\\exetFiles\\@fileNameWithoutExt",
             ".js": "node @fileNameWithDir",
             ".ts": "cd @dir && tsc @fileName && node ",
