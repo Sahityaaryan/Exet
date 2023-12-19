@@ -1,0 +1,6 @@
+{
+    ".cpp": "cd $dir && (if not exist exetFiles mkdir exetFiles) & g++ $fileName -o exetFiles/$fileNameWithoutExt && $dir\\exetFiles\\$fileNameWithoutExt",
+    ".java":"",
+    ".js": "node"
+}
+
