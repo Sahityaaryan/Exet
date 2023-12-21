@@ -35,12 +35,31 @@
           "exet.executorMap":{
          "type":"object",
           "default":  {
-            ".cpp":"cd @dir && (if not exist exetFiles mkdir exetFiles) & g++ @fileName -o exetFiles/@fileNameWithoutExt && @dir\/exetFiles\/@fileNameWithoutExt",
+            "linux":{
+              ".cpp":"cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && g++ @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
             ".java":  "cd @dir &&  (if not exist exetClasses mkdir exetClasses) & javac -d exetClasses @fileName && java -classpath exetClasses @fileNameWithoutExt",
             ".c": "cd @dir && (if not exist exetFiles mkdir exetFiles) & gcc @fileName -o exetFiles/@fileNameWithoutExt && @dir\\exetFiles\\@fileNameWithoutExt",
             ".js": "node @fileNameWithDir",
             ".ts": "cd @dir && tsc @fileName && node ",
-            "objective-c": "cd $dir && (if not exist exetFiles mkdir exetFiles) & gcc -framework Cocoa $fileName -o exetFiles/$fileNameWithoutExt && $dir\\exetFiles\\$fileNameWithoutExt"
+            "objective-c": "cd @dir && (if not exist exetFiles mkdir exetFiles) & gcc -framework Cocoa @fileName -o exetFiles/@fileNameWithoutExt && @dir\\exetFiles\\@fileNameWithoutExt"
+            },
+            "darwin":{
+              ".cpp":"cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && g++ @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
+            ".java":  "cd @dir &&  (if not exist exetClasses mkdir exetClasses) & javac -d exetClasses @fileName && java -classpath exetClasses @fileNameWithoutExt",
+            ".c": "cd @dir && (if not exist exetFiles mkdir exetFiles) & gcc @fileName -o exetFiles/@fileNameWithoutExt && @dir\\exetFiles\\@fileNameWithoutExt",
+            ".js": "node @fileNameWithDir",
+            ".ts": "cd @dir && tsc @fileName && node ",
+            "objective-c": "cd @dir && (if not exist exetFiles mkdir exetFiles) & gcc -framework Cocoa @fileName -o exetFiles/@fileNameWithoutExt && @dir\\exetFiles\\@fileNameWithoutExt"
+            },
+
+            "win32":{
+                ".cpp":"cd @dir && (if not exist exetFiles mkdir exetFiles) & g++ @fileName -o exetFiles/@fileNameWithoutExt && @dir\\exetFiles\\@fileNameWithoutExt",
+                ".java":  "cd @dir &&  (if not exist exetClasses mkdir exetClasses) & javac -d exetClasses @fileName && java -classpath exetClasses @fileNameWithoutExt",
+                ".c": "cd @dir && (if not exist exetFiles mkdir exetFiles) & gcc @fileName -o exetFiles/@fileNameWithoutExt && @dir\\exetFiles\\@fileNameWithoutExt",
+                ".js": "node @fileNameWithDir",
+                ".ts": "cd @dir && tsc @fileName && node ",
+                "objective-c": "cd @dir && (if not exist exetFiles mkdir exetFiles) & gcc -framework Cocoa @fileName -o exetFiles/@fileNameWithoutExt && @dir\\exetFiles\\@fileNameWithoutExt"
+            }
       },
       "description": "This is the executor map which run appropriate execution commands for the corresponding extension name"
     }
@@ -59,7 +78,7 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.6",
-    "@types/node": "18.x",
+    "@types/node": ">=18.0.0",
     "@types/vscode": "^1.85.0",
     "@typescript-eslint/eslint-plugin": "^6.13.1",
     "@typescript-eslint/parser": "^6.13.1",
@@ -69,6 +88,8 @@
     "typescript": "^5.3.2"
   },
   "dependencies": {
-    "micromatch": "^4.0.5"
+
   }
 }
+
+

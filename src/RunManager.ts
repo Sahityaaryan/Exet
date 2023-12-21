@@ -5,15 +5,6 @@ import * as vscode from "vscode";
 import * as os from "os";
 import * as path from "path";
 
-// const data = fs.readFileSync("./executorMap.json", "utf-8");
-// const executorMap = JSON.parse(data);
-
-// const executorMap = {
-//   ".cpp":
-//     `cd $dir && (if not exist exetFiles mkdir exetFiles) & g++ $fileName -o exetFiles/$fileNameWithoutExt && $dir\\exetFiles\\$fileNameWithoutExt`,
-//   ".java": "",
-//   ".js": "node"
-// };
 
 
 export class RunManager implements vscode.Disposable {
@@ -92,9 +83,13 @@ export class RunManager implements vscode.Disposable {
       ? this.getWorkSpaceFolder()
       : undefined;
 
+
+        console.log("workspaceFolder: ",this.workspaceFolder);
+        // vscode.window.showInformationMessage(this.workspaceFolder);
     if (!this.workspaceFolder && this.document && !this.document.isUntitled) {
       // if we have the file only in the workspace we will assign its path as the cwd
       this.cwd = path.dirname(this.document.fileName);
+
     } else {
       //if we have the workspacefolder then this would be relevant to be the cwd
       this.cwd = this.workspaceFolder;
@@ -147,20 +142,42 @@ export class RunManager implements vscode.Disposable {
 
     const executorMap = workspaceConfig.get("executorMap");
 
-    console.log(executorMap);
+    console.log("this is the executor map : ",executorMap);
 
     if (!executorMap || executorMap == undefined) {
       vscode.window.showErrorMessage("Something went wrong (Executor Map)");
       return;
     }
 
-    for (let ext of Object.keys(executorMap)) {
-      if (ext === fileExtension) {
-        executor = executorMap[ext];
-        break;
-      }
-    }
+    // for (let ext of Object.keys(executorMap)) {
+    //   if (ext === fileExtension) {
+    //     executor = executorMap[ext];
+    //     break;
+    //   }
+    // }
 
+    for (let platform of Object.keys(executorMap)) {
+      // console.log(typeof this.osPlatform())
+      if(platform === this.osPlatform())
+      {
+        const osPlatform = executorMap[platform];
+        for (let ext of Object.keys(osPlatform)) {
+          console.log("ext: ",ext);
+          if (ext === fileExtension) {
+            executor = osPlatform[ext];
+            break;
+          }
+        }
+    
+      }
+  }
+
+    if(executor == undefined || !executor)
+    {
+      vscode.window.showErrorMessage("Can't find the appropriate executor may be the language is not supported 🥲");
+      return;
+
+    }
     return executor;
 
     //~ Function to add the unknow language support
@@ -174,9 +191,6 @@ export class RunManager implements vscode.Disposable {
     //Executing the command in the integrated terminal
 
     const activeTextEditor = vscode.window.activeTextEditor;
-
-    //? what is that selection?
-    let selection = activeTextEditor?.selection;
 
     //if all the extensions is configured to save all files before run then do so
 
@@ -194,16 +208,8 @@ export class RunManager implements vscode.Disposable {
   }
 
   private executeCommand(executor: string, appendFile: boolean) {
-    //again asking my configuration to run form terminal or from the output
 
-    //# soon add this functionality
-    // if(this.config.get("runInTerminal"))
-    // {
-    //     this.executeCommandInTerminal(executor,appendFile);
-    // }
-    // else{
-    //   vscode.window.showInformationMessage("Sorry! can't provide you with new output terminal");
-    // }
+    //again asking my configuration to run form terminal or from the output terminal
 
     this.executeCommandInTerminal(executor, appendFile);
   }
@@ -225,12 +231,13 @@ export class RunManager implements vscode.Disposable {
           .basename(_doc.fileName)
           .replace(/(\.)[a-zA-Z]+$/, ""),
         dir: path.dirname(_doc.fileName),
+        workSpace:this.workspaceFolder,
         fileNameWithDir:_doc.fileName,
       };
 
   
 
-    executor = this.setExecutorVariables(fileProps,executor);
+    executor = this.setExecutorVariables(fileProps,executor,this.osPlatform());
 
       //I will set the terminal (to open the terminal default)
       const terminals = vscode.window.terminals;
@@ -249,6 +256,7 @@ export class RunManager implements vscode.Disposable {
         }
         
         console.log("Hi I am here 👋");
+        // console.log("os of the platform is: ",this.osPlatform());
         // console.log("terminal: ",this.terminal)
       //   if(this.terminal == undefined || this.terminal==null)
       //  {
@@ -259,14 +267,16 @@ export class RunManager implements vscode.Disposable {
        (this.terminal || this.terminal != undefined)? this.terminal.show(true):vscode.window.showInformationMessage("Term problem");
     //finally the command will be written on the terminal
     this.terminal.sendText(executor, appendFile);
+
   }
 
   private setExecutorVariables(fileProps: {
     fileName: string;
     fileNameWithoutExt: string;
     dir: string;
+    workSpace: string;
     fileNameWithDir:string;
-  },executor:string)
+  },executor:string,platform:string)
    {
       //* here I am checking that whether this patterns match in the overall executor string
 
@@ -274,6 +284,7 @@ export class RunManager implements vscode.Disposable {
         {variable:/\@dir/g ,replaceStatement:fileProps.dir},
         {variable:/\@fileNameWithDir/g ,replaceStatement:fileProps.fileNameWithDir},
         {variable:/\@fileNameWithoutExt/g ,replaceStatement:fileProps.fileNameWithoutExt},
+        {variable:/\@workSpace/g ,replaceStatement:fileProps.workSpace},
         {variable:/\@fileName/g ,replaceStatement:fileProps.fileName},
       ];
 
@@ -286,6 +297,13 @@ export class RunManager implements vscode.Disposable {
 
       return executor;
   }
+
+  private osPlatform()
+  {
+    return os.platform();
+  }
+
+
 }
 
 
@@ -302,3 +320,6 @@ export class RunManager implements vscode.Disposable {
 // * micromatch (advance and can able to handle complex search) > minimatch
 
 // vscoded's api  provides the number of matched files
+
+
+//darwin - for macOs  
