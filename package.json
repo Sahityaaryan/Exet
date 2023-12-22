@@ -51,11 +51,11 @@
             },
 
             "win32":{
-                ".cpp":"cd @dir && (if not exist exetFiles mkdir exetFiles) & g++ @fileName -o exetFiles/@fileNameWithoutExt && @dir\\exetFiles\\@fileNameWithoutExt",
+                ".cpp":" cd @workSpace && (if not exist exetClasses mkdir exetClasses) & javac -d @workSpace\\exetClasses @fileName && java -classpath @workSpace\\exetClasses @fileNameWithoutExt",
                 ".java":  "cd @dir &&  (if not exist exetClasses mkdir exetClasses) & javac -d exetClasses @fileName && java -classpath exetClasses @fileNameWithoutExt",
-                ".c": "cd @dir && (if not exist exetFiles mkdir exetFiles) & gcc @fileName -o exetFiles/@fileNameWithoutExt && @dir\\exetFiles\\@fileNameWithoutExt",
+                ".c": "cd @workspace && (if not exist exetFiles mkdir exetFiles) & cd @dir && gcc @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt && @workSpace\\exetFiles\\@fileNameWithoutExt",
                 ".js": "node @fileNameWithDir",
-                ".ts": "cd @workSpace && (if not exist exetEmittedJsFiles mkdir exetEmittedJsFiles) & cd @dir && tsc @fileName --outDir @workSpace/exetEmittedJsFiles && node @workSpace/exetEmittedJsFiles/@fileNameWithoutExt.js"
+                ".ts": "cd @workSpace && (if not exist exetEmittedJsFiles mkdir exetEmittedJsFiles) & cd @dir && tsc @fileName --outDir @workSpace\\exetEmittedJsFiles && node @workSpace\\exetEmittedJsFiles\\@fileNameWithoutExt.js"
             }
       },
       "description": "This is the executor map which run appropriate execution commands for the corresponding extension name"

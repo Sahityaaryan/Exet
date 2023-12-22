@@ -1,3 +1,10 @@
+
+/**
+ * 		[Linux]: ".cpp":"cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && g++ @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
+ * 
+ */
+
+
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
@@ -26,7 +33,6 @@ export function activate(context: vscode.ExtensionContext) {
       
 		try {
 			const runCode = new RunManager();
-
       // start the execution
       runCode.run();
 		} catch (e) {
@@ -48,10 +54,33 @@ export function deactivate() {
 
 // Question
 
-// 1. what is the work of selection 
+// 1. what is the work of selection [done]
 
-// 2. how to setup the config for my extension
+// 2. how to setup the config for my extension [done]
 
-// 3. how to setup my executor map
+// 3. how to setup my executor map [done]
 
-//4. how to update my executor with the cwd in the executor map
+//4. how to update my executor with the cwd in the executor map [done]
+
+
+//5. Updating the cli config for linux
+
+// 6. How to create only one exetFile for the entire workspace
+
+// - ".cpp":"cd @dir && (if not exist exetFiles mkdir exetFiles) & g++ @fileName -o exetFiles/@fileNameWithoutExt && @dir\/exetFiles\/@fileNameWithoutExt", [windows]
+// - ".cpp":" cd @dir && mkdir -p @dir/exetFiles & g++ @fileName -o @dir/exetFiles/@fileNameWithoutExt &&  @dir/exetFiles/@fileNameWithoutExt", [Ubuntu]
+
+
+
+// cd /home/sahitya/Desktop/test && mkdir -p exetFiles & g++ try.cpp -o testexetFiles/try &&  /home/sahitya/Desktop/test/exetFiles/try
+
+
+// space in g++try.cpp
+
+// extra "//" after -o : /home/sahitya/Desktop/testexetFiles//try &&  /home/sahitya/Desktop/testexetFiles//try
+
+// cd /home/sahitya/Desktop/test/Cpp && mkdir -p exetFiles & g++ try.cpp -o /home/sahitya/Desktop/test/Cpp/exetFiles/try &&  /home/sahitya/Desktop/test/Cpp/exetFiles/try
+
+//  cd /home/sahitya/Desktop/test/Cpp && mkdir -p exetFiles & g++ try.cpp -o /home/sahitya/Desktop/test/Cpp/exetFiles/try &&  /home/sahitya/Desktop/test/Cpp/exetFiles/try >/dev/null 2>&1
+
+
