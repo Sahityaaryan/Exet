@@ -9,11 +9,15 @@ import * as path from "path";
 
 export class RunManager implements vscode.Disposable {
   private terminal: vscode.Terminal | null;
-  private isRunning: boolean;
+  private isRunning: boolean = false;
   private document: vscode.TextDocument;
   private workspaceFolder: string | undefined;
   private config: vscode.WorkspaceConfiguration;
   private cwd: string;
+  private showOutputOnOutputChannel:boolean = false;
+  private executorMap:object | undefined;
+  private extensionNameMapByLanaguageId:object | undefined;
+  // private setAlias:boolean = true;
   private config: vscode.WorkspaceConfiguration;
   constructor() {
     this.terminal = null;
@@ -139,8 +143,9 @@ export class RunManager implements vscode.Disposable {
 
     // const executorMap = this.config.get("executorMap")
     const workspaceConfig = vscode.workspace.getConfiguration("exet");
+      this.executorMap = workspaceConfig.get("executorMap");
 
-    const executorMap = workspaceConfig.get("executorMap");
+    const executorMap = this.executorMap;
 
     console.log("this is the executor map : ",executorMap);
 
@@ -264,9 +269,46 @@ export class RunManager implements vscode.Disposable {
       //   console.log("terminal: ",this.terminal);
       //  }
         
-       (this.terminal || this.terminal != undefined)? this.terminal.show(true):vscode.window.showInformationMessage("Term problem");
+       (this.terminal || this.terminal != undefined)? this.terminal.show(true):vscode.window.showErrorMessage("Something went wrong will generating output at terminal");
+
+
+       const ext = path.extname(path.basename(this.document.fileName));
+
+
+       
+
+       
     //finally the command will be written on the terminal
+
+
+    
     this.terminal.sendText(executor, appendFile);
+
+    // if(!this.showOutputOnOutputChannel)
+    // {this.terminal.sendText(executor, appendFile);}
+
+    // else {
+    //   this.runFromTheOutputChannel(executor,ext);
+    // }
+
+    // console.log("AppendFiles: ",appendFile);
+
+    this.isRunning = false;
+
+
+       //now cretaing the progress bar like thing
+
+     
+    //   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+
+    //   statusBarItem.text = 'Progress 0%';
+      
+    //   function updateProgress(progress: number) {
+    //     statusBarItem.text = `Progress: ${progress}%`;
+    //     statusBarItem.show();
+    // }
+
+
 
   }
 
@@ -303,6 +345,41 @@ export class RunManager implements vscode.Disposable {
     return os.platform();
   }
 
+  // private runFromTheOutputChannel(executor:string,ext:string)
+  // {
+
+  //   const workspaceConfig = vscode.workspace.getConfiguration("exet");
+
+  //     this.extensionNameMapByLanaguageId = workspaceConfig.get("extensionNameMapByLanaguageId");
+
+  //     if(this.extensionNameMapByLanaguageId == undefined || !this.extensionNameMapByLanaguageId)
+  //     {
+  //       console.log(
+  //         "not able to find the languageId object"
+  //       );
+  //       return;
+  //     }
+
+  //     let languageId;
+
+  //     for(let keys of Object.keys(this.extensionNameMapByLanaguageId))
+  //     {
+  //         if(keys===ext)
+  //         {
+  //           languageId = this.extensionNameMapByLanaguageId[ext];
+  //         }
+  //     }
+
+
+    
+
+
+  //   const output_ = vscode.window.createOutputChannel(`Output.${languageId}`,languageId);
+
+  //   output_.show();
+
+  //   output_.append(executor);
+  // }
 
 }
 
@@ -323,3 +400,13 @@ export class RunManager implements vscode.Disposable {
 
 
 //darwin - for macOs  
+
+
+
+
+//del example
+
+// ".cpp":"cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && g++ @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
+
+
+// ".java":  "cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles)&& cd @dir && javac -d @workSpace/exetClasses/ @fileName && java -classpath @workSpace/exetClasses @fileNameWithoutExt",
