@@ -2,7 +2,7 @@
   "name": "exet",
   "displayName": "Exet",
   "publisher": "sahityaaryan",
-  "description": "Thsi extension help the coders and programmers to manage the executable files at one place and hence make there workspace clear and consistent",
+  "description": "This extension will help the coders and programmers to manage the executable files at one place and hence make there workspace clear and consistent",
   "version": "1.1.0",
   "icon": "images/Exet_logo_2.png",
   "engines": {
