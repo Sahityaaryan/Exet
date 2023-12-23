@@ -4,10 +4,13 @@
   "publisher": "sahityaaryan",
   "description": "Thsi extension help the coders and programmers to manage the executable files at one place and hence make there workspace clear and consistent",
   "version": "1.1.0",
+  "icon": "images/Exet_logo_2.png",
   "engines": {
     "vscode": "^1.85.0"
   },
+
   "categories": [
+    "Programming Languages",
     "Other"
   ],
   "activationEvents": [],
@@ -20,7 +23,7 @@
       },
       {
         "command": "exet.run",
-        "title": "testing"
+        "title": "Running"
       }
     ],
     "keybindings":[
@@ -29,6 +32,10 @@
         "key": "ctrl+1"
       }
     ],
+    "repository":{
+          "type":"git",
+          "url":"https://github.com/Sahityaaryan/Exet"
+    },
     "configuration":[
       {
         "title": "Extension configuration",
