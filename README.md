@@ -7,6 +7,9 @@ or .class files (in java) or .js files (in Ts).
 
 This will create a separate folder for all the executable files of a particualr language and executable files of any file in any folder inside the workspace will be stored in this folder and will execute smoothly
 
+# How to run it?
+Just hit ctrl+1
+
 ## Features
 
 1. Handles the exe files for the cpp and c langauge in a single folder "exetFiles" so that your workspace will look clear and consistent
