@@ -15,6 +15,10 @@
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
+  "repository":{
+    "type":"git",
+    "url":"https://github.com/Sahityaaryan/Exet"
+},
   "contributes": {
     "commands": [
       {
@@ -32,10 +36,6 @@
         "key": "ctrl+1"
       }
     ],
-    "repository":{
-          "type":"git",
-          "url":"https://github.com/Sahityaaryan/Exet"
-    },
     "configuration":[
       {
         "title": "Extension configuration",
