@@ -1,35 +1,38 @@
 # exet README
 
-This is the README for your extension "exet". After writing up a brief description, we recommend including the following sections.
+Hello world from Exet!
+
+This extension adds smooth coding experience the coders and programmers by managing the executable files like .exe (in cpp || c)
+or .class files (in java) or .js files (in Ts).
+
+This will create a separate folder for all the executable files of a particualr language and executable files of any file in any folder inside the workspace will be stored in this folder and will execute smoothly
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+1. Handles the exe files for the cpp and c langauge in a single folder "exetFiles" so that your workspace will look clear and consistent
+2. Handles the class files for the java langauge in a single folder "exetClasses" so that your workspace will look clear and consistent
+3. Handles the emittedJs files for the typescript in a single folder "exetEmittedJsFiles" to make your workspace clear and consistent
+4. Run code per filename
+5. Support REPL by running code in Integrated Terminal (default)
+6. supports langauges such as cpp, c , java, javascript, typescript
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- To use powershell for the running the scripts it must be of version 7 or newer.
+- To run typescript you must have typescript compiler in your system `tsc`
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+* `exet.enable`: Enable/disable this extension.
+* `exet.executorMap`: Executor map to map the extension name with the requrire execution command.
+* `exet.extensionNameMapByLanaguageId`: This is to map the extension name with the corresponding languageId.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- If your a windows user then prefer using command prompt or if want to use powershell then update your powershell to 7 or newer version 
 
 ## Release Notes
 
@@ -37,17 +40,20 @@ Users appreciate release notes as you update your extension.
 
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
+The extension will manage the executables of all the files inside the folder
 
 ### 1.1.0
 
-Added features X, Y, and Z.
+Added feature: The extension will manage the executables of all the file inside the root directory only
 
 ---
+
+## What I have not includeded
+
+- support for execute the command in the output terminal because the output channel can't take input and eventually the terminal can be used for both input and output.
+- Run from file explorer 
+- SheBang support
+- Run by language
 
 ## Following extension guidelines
 
