@@ -14,7 +14,8 @@ This will create a separate folder for all the executable files of a particualr 
 3. Handles the emittedJs files for the typescript in a single folder "exetEmittedJsFiles" to make your workspace clear and consistent
 4. Run code per filename
 5. Support REPL by running code in Integrated Terminal (default)
-6. supports langauges such as cpp, c , java, javascript, typescript
+6. Supports langauges such as cpp, c , java, javascript, typescript
+7. Can manage the executables of any script at any level of folder inside the workspace 
 
 
 ## Requirements
