@@ -47,6 +47,8 @@ The extension will manage the executables of all the files inside the folder
 
 Added feature: The extension will manage the executables of all the file inside the root directory only
 
+### 1.1.1
+
 ---
 
 ## What I have not included
