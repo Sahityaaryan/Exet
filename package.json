@@ -1,8 +1,9 @@
 {
   "name": "exet",
   "displayName": "Exet",
-  "description": "",
-  "version": "0.0.1",
+  "publisher": "sahityaaryan",
+  "description": "Thsi extension help the coders and programmers to manage the executable files at one place and hence make there workspace clear and consistent",
+  "version": "1.1.0",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -52,8 +53,8 @@
 
             "win32":{
                 ".cpp":" cd @workSpace && (if not exist exetClasses mkdir exetClasses) & javac -d @workSpace\\exetClasses @fileName && java -classpath @workSpace\\exetClasses @fileNameWithoutExt",
-                ".java":  "cd @dir &&  (if not exist exetClasses mkdir exetClasses) & javac -d exetClasses @fileName && java -classpath exetClasses @fileNameWithoutExt",
-                ".c": "cd @workspace && (if not exist exetFiles mkdir exetFiles) & cd @dir && gcc @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt && @workSpace\\exetFiles\\@fileNameWithoutExt",
+                ".java":  "cd @workSpace && (if not exist exetClasses mkdir exetClasses) & javac -d @workSpace\\exetClasses @fileName && java -classpath @workSpace\\exetClasses @fileNameWithoutExt",
+                ".c": "cd @workSpace && (if not exist exetFiles mkdir exetFiles) & cd @dir && gcc @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt && @workSpace\\exetFiles\\@fileNameWithoutExt",
                 ".js": "node @fileNameWithDir",
                 ".ts": "cd @workSpace && (if not exist exetEmittedJsFiles mkdir exetEmittedJsFiles) & cd @dir && tsc @fileName --outDir @workSpace\\exetEmittedJsFiles && node @workSpace\\exetEmittedJsFiles\\@fileNameWithoutExt.js"
             }
@@ -68,7 +69,8 @@
       ".ts":"typescript",
       ".java":"java",
       ".c":"c"
-      }
+      },
+      "description": "This is to map the extension name with the languageId"
     }
 
         }
