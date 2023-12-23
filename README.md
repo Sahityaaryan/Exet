@@ -1,4 +1,4 @@
-# exet README
+# Exet 
 
 Hello world from Exet!
 
@@ -48,7 +48,7 @@ Added feature: The extension will manage the executables of all the file inside 
 
 ---
 
-## What I have not includeded
+## What I have not included
 
 - support for execute the command in the output terminal because the output channel can't take input and eventually the terminal can be used for both input and output.
 - Run from file explorer 
