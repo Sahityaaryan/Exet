@@ -2,7 +2,7 @@
 
 Hello world from Exet!
 
-This extension adds smooth coding experience the coders and programmers by managing the executable files like .exe (in cpp || c)
+This extension provide smooth coding experience to the coders and programmers by managing the executable files like .exe (in cpp || c)
 or .class files (in java) or .js files (in Ts).
 
 This will create a separate folder for all the executable files of a particualr language and executable files of any file in any folder inside the workspace will be stored in this folder and will execute smoothly
