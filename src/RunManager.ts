@@ -1,6 +1,6 @@
 
 'use strict';
-import * as fs from 'fs'
+import * as fs from 'fs';
 import * as vscode from "vscode";
 import * as os from "os";
 import * as path from "path";
@@ -10,17 +10,19 @@ import * as path from "path";
 export class RunManager implements vscode.Disposable {
   private terminal: vscode.Terminal | null;
   private isRunning: boolean = false;
-  private document: vscode.TextDocument;
   private workspaceFolder: string | undefined;
-  private config: vscode.WorkspaceConfiguration;
-  private cwd: string;
+  private cwd: string | undefined;
   private showOutputOnOutputChannel:boolean = false;
   private executorMap:object | undefined;
+  private config: vscode.WorkspaceConfiguration | undefined;
   private extensionNameMapByLanaguageId:object | undefined;
+  private document: vscode.TextDocument | undefined;
   // private setAlias:boolean = true;
-  private config: vscode.WorkspaceConfiguration;
-  constructor() {
-    this.terminal = null;
+
+
+  constructor(){
+    this.terminal= null;
+    this.config = undefined; 
   }
 
   public async run() {
@@ -39,13 +41,6 @@ export class RunManager implements vscode.Disposable {
       //getting the document loaded at the editor
       this.document = editor.document;
 
-      console.log(
-        "this document is ready going to execute: ",
-        this.document.fileName,
-        " 😃"
-      );
-
-      // this.document.fileName=d:\DSA\cppPractice\sorting\newTry.cpp
     } else {
       vscode.window.showErrorMessage("No Code Found for execution ☹️");
       return;
@@ -72,9 +67,10 @@ export class RunManager implements vscode.Disposable {
 
   //A private method because I not want it to be accessible to any of the instances and some initialization are rest for the future
   private initialize() {
+
     //!why a config ? what is it's significance?
     //* to get access of configurations of the extension which i have setted
-    this.config = vscode.workspace.getConfiguration("exet", this.document.uri); //!we don't to look in our config for now
+    this.config = vscode.workspace.getConfiguration("exet", this.document.uri); 
 
     //* here I don't allow the user to set the cwd on there own may be the feature appear in the future
 
@@ -88,7 +84,7 @@ export class RunManager implements vscode.Disposable {
       : undefined;
 
 
-        console.log("workspaceFolder: ",this.workspaceFolder);
+        // console.log("workspaceFolder: ",this.workspaceFolder);
         // vscode.window.showInformationMessage(this.workspaceFolder);
     if (!this.workspaceFolder && this.document && !this.document.isUntitled) {
       // if we have the file only in the workspace we will assign its path as the cwd
@@ -105,7 +101,7 @@ export class RunManager implements vscode.Disposable {
 
     //here if ther are many folders then we have to choose either the relevant one or the first one
     if (foldersArray) {
-      const workspaceFolder: vscode.WorkspaceFolder =
+      const workspaceFolder: vscode.WorkspaceFolder | undefined =
         vscode.workspace.getWorkspaceFolder(this.document.uri);
 
       //if our code is within some folder then we would provide the folder path
@@ -114,7 +110,6 @@ export class RunManager implements vscode.Disposable {
         return workspaceFolder.uri.fsPath; // returns string
       }
 
-      //? if we not found the folder the first folder will be the workspace folder?
       return foldersArray[0].uri.fsPath;
     }
     //if we didn't event found the folders Array then we will return undefined may be because there is no other folder in the workspace may be a file only
@@ -125,10 +120,9 @@ export class RunManager implements vscode.Disposable {
   private getExecutor(fileExtension: string) {
     //letting the user know the file is srunning
     this.isRunning = true;
+
     //* the identification is solely depended over the fileExtension
 
-    //identifying the language
-    //as for now I am just adding the support for the cpp
 
     let executor = null;
 
@@ -141,33 +135,24 @@ export class RunManager implements vscode.Disposable {
 
     //! this is the map of executor to the extension name
 
-    // const executorMap = this.config.get("executorMap")
     const workspaceConfig = vscode.workspace.getConfiguration("exet");
       this.executorMap = workspaceConfig.get("executorMap");
 
     const executorMap = this.executorMap;
 
-    console.log("this is the executor map : ",executorMap);
+    // console.log("this is the executor map : ",executorMap);
 
-    if (!executorMap || executorMap == undefined) {
+    if (!executorMap || executorMap === undefined) {
       vscode.window.showErrorMessage("Something went wrong (Executor Map)");
       return;
     }
 
-    // for (let ext of Object.keys(executorMap)) {
-    //   if (ext === fileExtension) {
-    //     executor = executorMap[ext];
-    //     break;
-    //   }
-    // }
-
     for (let platform of Object.keys(executorMap)) {
-      // console.log(typeof this.osPlatform())
+
       if(platform === this.osPlatform())
       {
         const osPlatform = executorMap[platform];
         for (let ext of Object.keys(osPlatform)) {
-          console.log("ext: ",ext);
           if (ext === fileExtension) {
             executor = osPlatform[ext];
             break;
@@ -177,7 +162,7 @@ export class RunManager implements vscode.Disposable {
       }
   }
 
-    if(executor == undefined || !executor)
+    if(executor === undefined || !executor)
     {
       vscode.window.showErrorMessage("Can't find the appropriate executor may be the language is not supported 🥲");
       return;
@@ -226,12 +211,11 @@ export class RunManager implements vscode.Disposable {
     appendFile: boolean = true
   ) {
     if (!this.terminal) {
-      // console.log("inside the command 👋");
-
-      const _doc = this.document;
+     
+      const _doc:vscode.TextDocument= this.document;
 
       const fileProps = {
-        fileName: path.basename(_doc.fileName),
+        fileName: path.basename(_doc?.fileName),
         fileNameWithoutExt: path
           .basename(_doc.fileName)
           .replace(/(\.)[a-zA-Z]+$/, ""),
@@ -259,8 +243,7 @@ export class RunManager implements vscode.Disposable {
           // vscode.window.showInformationMessage("Please set the terminal!!");
           this.terminal = vscode.window.createTerminal("Code");
         }
-        
-        console.log("Hi I am here 👋");
+      
         // console.log("os of the platform is: ",this.osPlatform());
         // console.log("terminal: ",this.terminal)
       //   if(this.terminal == undefined || this.terminal==null)
@@ -268,8 +251,10 @@ export class RunManager implements vscode.Disposable {
       //   vscode.window.createTerminal("NewTerm");
       //   console.log("terminal: ",this.terminal);
       //  }
+    // this.terminal = null;
+
         
-       (this.terminal || this.terminal != undefined)? this.terminal.show(true):vscode.window.showErrorMessage("Something went wrong will generating output at terminal");
+       (this.terminal || this.terminal !== undefined)? this.terminal.show(true):vscode.window.showErrorMessage("Something went wrong will generating output at terminal");
 
 
        const ext = path.extname(path.basename(this.document.fileName));
@@ -291,7 +276,7 @@ export class RunManager implements vscode.Disposable {
     //   this.runFromTheOutputChannel(executor,ext);
     // }
 
-    // console.log("AppendFiles: ",appendFile);
+    
 
     this.isRunning = false;
 
@@ -335,7 +320,7 @@ export class RunManager implements vscode.Disposable {
       {
         executor = executor.replace(keys.variable, keys.replaceStatement); 
       }
-      // console.log("executor: ",executor);
+    
 
       return executor;
   }
@@ -381,13 +366,19 @@ export class RunManager implements vscode.Disposable {
   //   output_.append(executor);
   // }
 
+  // this is of no use kindly ignore it
+  public dispose():void
+  {
+    console.log("RunManager disposed");
+  }
+
 }
 
 
 //! problems
 
 //1. the name is not comming with the string literals ("") [done]
-//2. regex match problem [done][but explaination needed] 
+//2. regex match problem [done]
 
 
 
@@ -402,11 +393,3 @@ export class RunManager implements vscode.Disposable {
 //darwin - for macOs  
 
 
-
-
-//del example
-
-// ".cpp":"cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && g++ @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
-
-
-// ".java":  "cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles)&& cd @dir && javac -d @workSpace/exetClasses/ @fileName && java -classpath @workSpace/exetClasses @fileNameWithoutExt",

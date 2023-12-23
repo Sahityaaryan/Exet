@@ -1,8 +1,4 @@
 
-/**
- * 		[Linux]: ".cpp":"cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && g++ @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
- * 
- */
 
 
 // The module 'vscode' contains the VS Code extensibility API
@@ -24,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
 	//* The commandId parameter must match the command field in package.json
 
 	let disposable = vscode.commands.registerCommand("exet.helloWorld", () => {
-      vscode.window.showInformationMessage("Jai mata di!");
+	  vscode.window.showInformationMessage("Hello Exet User");
     });
 
 	
@@ -47,7 +43,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 // This method is called when your extension is deactivated
 export function deactivate() {
-	console.log("deactivating 😎!!!");
+	// console.log("deactivating 😎!!!");
 }
 
 
@@ -63,24 +59,6 @@ export function deactivate() {
 //4. how to update my executor with the cwd in the executor map [done]
 
 
-//5. Updating the cli config for linux
+//5. Updating the cli config for linux [done]
 
-// 6. How to create only one exetFile for the entire workspace
-
-// - ".cpp":"cd @dir && (if not exist exetFiles mkdir exetFiles) & g++ @fileName -o exetFiles/@fileNameWithoutExt && @dir\/exetFiles\/@fileNameWithoutExt", [windows]
-// - ".cpp":" cd @dir && mkdir -p @dir/exetFiles & g++ @fileName -o @dir/exetFiles/@fileNameWithoutExt &&  @dir/exetFiles/@fileNameWithoutExt", [Ubuntu]
-
-
-
-// cd /home/sahitya/Desktop/test && mkdir -p exetFiles & g++ try.cpp -o testexetFiles/try &&  /home/sahitya/Desktop/test/exetFiles/try
-
-
-// space in g++try.cpp
-
-// extra "//" after -o : /home/sahitya/Desktop/testexetFiles//try &&  /home/sahitya/Desktop/testexetFiles//try
-
-// cd /home/sahitya/Desktop/test/Cpp && mkdir -p exetFiles & g++ try.cpp -o /home/sahitya/Desktop/test/Cpp/exetFiles/try &&  /home/sahitya/Desktop/test/Cpp/exetFiles/try
-
-//  cd /home/sahitya/Desktop/test/Cpp && mkdir -p exetFiles & g++ try.cpp -o /home/sahitya/Desktop/test/Cpp/exetFiles/try &&  /home/sahitya/Desktop/test/Cpp/exetFiles/try >/dev/null 2>&1
-
-
+// 6. How to create only one exetFile for the entire workspace [done]
