@@ -58,13 +58,13 @@
             ".ts": "cd @workSpace && ([[ ! -d exetEmittedJsFiles ]] & mkdir -p exetEmittedJsFiles) && cd @dir && tsc @fileName --outDir @workSpace/exetEmittedJsFiles && node @workSpace/exetEmittedJsFiles/@fileNameWithoutExt.js"
             },
 
-            "win32":{
-                ".cpp":" cd @workSpace && (if not exist exetClasses mkdir exetClasses) & javac -d @workSpace\\exetClasses @fileName && java -classpath @workSpace\\exetClasses @fileNameWithoutExt",
-                ".java":  "cd @workSpace && (if not exist exetClasses mkdir exetClasses) & javac -d @workSpace\\exetClasses @fileName && java -classpath @workSpace\\exetClasses @fileNameWithoutExt",
-                ".c": "cd @workSpace && (if not exist exetFiles mkdir exetFiles) & cd @dir && gcc @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt && @workSpace\\exetFiles\\@fileNameWithoutExt",
-                ".js": "node @fileNameWithDir",
-                ".ts": "cd @workSpace && (if not exist exetEmittedJsFiles mkdir exetEmittedJsFiles) & cd @dir && tsc @fileName --outDir @workSpace\\exetEmittedJsFiles && node @workSpace\\exetEmittedJsFiles\\@fileNameWithoutExt.js"
-            }
+            "win32": {
+              ".cpp": "cd @workSpace && (if not exist exetFiles mkdir exetFiles) & cd @dir && g++ @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt && @workSpace\\exetFiles\\@fileNameWithoutExt",
+              "java": "cd @workSpace && (if not exist exetClasses mkdir exetClasses) && cd @dir && javac -d @workSpace\\exetClasses @fileName && java -classpath @workSpace\\exetClasses @fileNameWithoutExt",
+              ".c": "cd @workSpace && (if not exist exetFiles mkdir exetFiles) & cd @dir && gcc @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt && @workSpace\\exetFiles\\@fileNameWithoutExt",
+              ".js": "node @fileNameWithDir",
+              ".ts": "cd @workSpace && (if not exist exetEmittedJsFiles mkdir exetEmittedJsFiles) & cd @dir && tsc @fileName --outDir @workSpace\\exetEmittedJsFiles && node @workSpace\\exetEmittedJsFiles\\@fileNameWithoutExt.js"
+          }
       },
       "description": "This is the executor map which run appropriate execution commands for the corresponding extension name"
     },
