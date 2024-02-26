@@ -10,6 +10,12 @@ This will create a separate folder for all the executable files of a particualr 
 # How to run it?
 Just hit ctrl+1
 
+# Tutorials
+ - [Complete setup (English)](https://www.youtube.com/watch?v=NzduTSxpZ6Y)
+ - [Complete setup (Hindi)](https://www.youtube.com/watch?v=XpYY_aEnbJQ)
+
+
+
 ## Features
 
 1. Handles the exe files for the cpp and c langauge in a single folder "exetFiles" so that your workspace will look clear and consistent
