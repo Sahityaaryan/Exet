@@ -8,17 +8,16 @@
   "engines": {
     "vscode": "^1.85.0"
   },
-
   "categories": [
     "Programming Languages",
     "Other"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
-  "repository":{
-    "type":"git",
-    "url":"https://github.com/Sahityaaryan/Exet"
-},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sahityaaryan/Exet"
+  },
   "contributes": {
     "commands": [
       {
@@ -30,56 +29,54 @@
         "title": "Running"
       }
     ],
-    "keybindings":[
+    "keybindings": [
       {
         "command": "exet.run",
         "key": "ctrl+1"
       }
     ],
-    "configuration":[
+    "configuration": [
       {
         "title": "Extension configuration",
         "properties": {
-          "exet.executorMap":{
-         "type":"object",
-          "default":  {
-            "linux":{
-              ".cpp":"cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && g++ @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
-            ".java":  "cd @workSpace && ([[ ! -d exetClasses ]] & mkdir -p exetClasses) && cd @dir && javac -d @workSpace/exetClasses @fileName && java -classpath @workSpace/exetClasses @fileNameWithoutExt",
-            ".c": "cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && gcc @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
-            ".js": "node @fileNameWithDir",
-            ".ts": "cd @workSpace && ([[ ! -d exetEmittedJsFiles ]] & mkdir -p exetEmittedJsFiles) && cd @dir && tsc @fileName --outDir @workSpace/exetEmittedJsFiles && node @workSpace/exetEmittedJsFiles/@fileNameWithoutExt.js"
+          "exet.executorMap": {
+            "type": "object",
+            "default": {
+              "linux": {
+                ".cpp": "cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && g++ @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
+                ".java": "cd @workSpace && ([[ ! -d exetClasses ]] & mkdir -p exetClasses) && cd @dir && javac -d @workSpace/exetClasses @fileName && java -classpath @workSpace/exetClasses @fileNameWithoutExt",
+                ".c": "cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && gcc @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
+                ".js": "node @fileNameWithDir",
+                ".ts": "cd @workSpace && ([[ ! -d exetEmittedJsFiles ]] & mkdir -p exetEmittedJsFiles) && cd @dir && tsc @fileName --outDir @workSpace/exetEmittedJsFiles && node @workSpace/exetEmittedJsFiles/@fileNameWithoutExt.js"
+              },
+              "darwin": {
+                ".cpp": "cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && g++ @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
+                ".java": "cd @workSpace && ([[ ! -d exetClasses ]] & mkdir -p exetClasses) && cd @dir && javac -d @workSpace/exetClasses @fileName && java -classpath @workSpace/exetClasses @fileNameWithoutExt",
+                ".c": "cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && gcc @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
+                ".js": "node @fileNameWithDir",
+                ".ts": "cd @workSpace && ([[ ! -d exetEmittedJsFiles ]] & mkdir -p exetEmittedJsFiles) && cd @dir && tsc @fileName --outDir @workSpace/exetEmittedJsFiles && node @workSpace/exetEmittedJsFiles/@fileNameWithoutExt.js"
+              },
+              "win32": {
+                ".cpp": "cd @workSpace && (if not exist exetFiles mkdir exetFiles) & cd @dir && g++ @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt && @workSpace\\exetFiles\\@fileNameWithoutExt",
+                ".java": "cd @workSpace && (if not exist exetClasses mkdir exetClasses) && cd @dir && javac -d @workSpace\\exetClasses @fileName && java -classpath @workSpace\\exetClasses @fileNameWithoutExt",
+                ".c": "cd @workSpace && (if not exist exetFiles mkdir exetFiles) & cd @dir && gcc @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt && @workSpace\\exetFiles\\@fileNameWithoutExt",
+                ".js": "node @fileNameWithDir",
+                ".ts": "cd @workSpace && (if not exist exetEmittedJsFiles mkdir exetEmittedJsFiles) & cd @dir && tsc @fileName --outDir @workSpace\\exetEmittedJsFiles && node @workSpace\\exetEmittedJsFiles\\@fileNameWithoutExt.js"
+              }
             },
-            "darwin":{
-              ".cpp":"cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && g++ @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
-            ".java":  "cd @workSpace && ([[ ! -d exetClasses ]] & mkdir -p exetClasses) && cd @dir && javac -d @workSpace/exetClasses @fileName && java -classpath @workSpace/exetClasses @fileNameWithoutExt",
-            ".c": "cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && gcc @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
-            ".js": "node @fileNameWithDir",
-            ".ts": "cd @workSpace && ([[ ! -d exetEmittedJsFiles ]] & mkdir -p exetEmittedJsFiles) && cd @dir && tsc @fileName --outDir @workSpace/exetEmittedJsFiles && node @workSpace/exetEmittedJsFiles/@fileNameWithoutExt.js"
+            "description": "This is the executor map which run appropriate execution commands for the corresponding extension name"
+          },
+          "exet.extensionNameMapByLanaguageId": {
+            "type": "object",
+            "default": {
+              ".cpp": "cpp",
+              ".js": "javascript",
+              ".ts": "typescript",
+              ".java": "java",
+              ".c": "c"
             },
-
-            "win32": {
-              ".cpp": "cd @workSpace && (if not exist exetFiles mkdir exetFiles) & cd @dir && g++ @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt && @workSpace\\exetFiles\\@fileNameWithoutExt",
-              "java": "cd @workSpace && (if not exist exetClasses mkdir exetClasses) && cd @dir && javac -d @workSpace\\exetClasses @fileName && java -classpath @workSpace\\exetClasses @fileNameWithoutExt",
-              ".c": "cd @workSpace && (if not exist exetFiles mkdir exetFiles) & cd @dir && gcc @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt && @workSpace\\exetFiles\\@fileNameWithoutExt",
-              ".js": "node @fileNameWithDir",
-              ".ts": "cd @workSpace && (if not exist exetEmittedJsFiles mkdir exetEmittedJsFiles) & cd @dir && tsc @fileName --outDir @workSpace\\exetEmittedJsFiles && node @workSpace\\exetEmittedJsFiles\\@fileNameWithoutExt.js"
+            "description": "This is to map the extension name with the languageId"
           }
-      },
-      "description": "This is the executor map which run appropriate execution commands for the corresponding extension name"
-    },
-    "exet.extensionNameMapByLanaguageId":{
-      "type":"object",
-      "default":{
-        ".cpp":"cpp",
-      ".js":"javascript",
-      ".ts":"typescript",
-      ".java":"java",
-      ".c":"c"
-      },
-      "description": "This is to map the extension name with the languageId"
-    }
-
         }
       }
     ]
@@ -104,8 +101,6 @@
     "typescript": "^5.3.2"
   },
   "dependencies": {
-
+    "vsce": "^2.15.0"
   }
 }
-
-
