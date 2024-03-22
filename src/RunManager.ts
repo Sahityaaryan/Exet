@@ -12,17 +12,17 @@ export class RunManager implements vscode.Disposable {
   private isRunning: boolean = false;
   private workspaceFolder: string | undefined;
   private cwd: string | undefined;
-  private showOutputOnOutputChannel:boolean = false;
-  private executorMap:object | undefined;
+  private showOutputOnOutputChannel: boolean = false;
+  private executorMap: object | undefined;
   private config: vscode.WorkspaceConfiguration | undefined;
-  private extensionNameMapByLanaguageId:object | undefined;
+  private extensionNameMapByLanaguageId: object | undefined;
   private document: vscode.TextDocument | undefined;
   // private setAlias:boolean = true;
 
 
-  constructor(){
-    this.terminal= null;
-    this.config = undefined; 
+  constructor() {
+    this.terminal = null;
+    this.config = undefined;
   }
 
   public async run() {
@@ -70,7 +70,7 @@ export class RunManager implements vscode.Disposable {
 
     //!why a config ? what is it's significance?
     //* to get access of configurations of the extension which i have setted
-    this.config = vscode.workspace.getConfiguration("exet", this.document.uri); 
+    this.config = vscode.workspace.getConfiguration("exet", this.document.uri);
 
     //* here I don't allow the user to set the cwd on there own may be the feature appear in the future
 
@@ -84,8 +84,8 @@ export class RunManager implements vscode.Disposable {
       : undefined;
 
 
-        // console.log("workspaceFolder: ",this.workspaceFolder);
-        // vscode.window.showInformationMessage(this.workspaceFolder);
+    // console.log("workspaceFolder: ",this.workspaceFolder);
+    // vscode.window.showInformationMessage(this.workspaceFolder);
     if (!this.workspaceFolder && this.document && !this.document.isUntitled) {
       // if we have the file only in the workspace we will assign its path as the cwd
       this.cwd = path.dirname(this.document.fileName);
@@ -136,7 +136,7 @@ export class RunManager implements vscode.Disposable {
     //! this is the map of executor to the extension name
 
     const workspaceConfig = vscode.workspace.getConfiguration("exet");
-      this.executorMap = workspaceConfig.get("executorMap");
+    this.executorMap = workspaceConfig.get("executorMap");
 
     const executorMap = this.executorMap;
 
@@ -149,8 +149,7 @@ export class RunManager implements vscode.Disposable {
 
     for (let platform of Object.keys(executorMap)) {
 
-      if(platform === this.osPlatform())
-      {
+      if (platform === this.osPlatform()) {
         const osPlatform = executorMap[platform];
         for (let ext of Object.keys(osPlatform)) {
           if (ext === fileExtension) {
@@ -158,12 +157,11 @@ export class RunManager implements vscode.Disposable {
             break;
           }
         }
-    
-      }
-  }
 
-    if(executor === undefined || !executor)
-    {
+      }
+    }
+
+    if (executor === undefined || !executor) {
       vscode.window.showErrorMessage("Can't find the appropriate executor may be the language is not supported 🥲");
       return;
 
@@ -211,8 +209,8 @@ export class RunManager implements vscode.Disposable {
     appendFile: boolean = true
   ) {
     if (!this.terminal) {
-     
-      const _doc:vscode.TextDocument= this.document;
+
+      const _doc: vscode.TextDocument = this.document;
 
       const fileProps = {
         fileName: path.basename(_doc?.fileName),
@@ -220,13 +218,13 @@ export class RunManager implements vscode.Disposable {
           .basename(_doc.fileName)
           .replace(/(\.)[a-zA-Z]+$/, ""),
         dir: path.dirname(_doc.fileName),
-        workSpace:this.workspaceFolder,
-        fileNameWithDir:_doc.fileName,
+        workSpace: this.workspaceFolder,
+        fileNameWithDir: _doc.fileName,
       };
 
-  
 
-    executor = this.setExecutorVariables(fileProps,executor,this.osPlatform());
+
+      executor = this.setExecutorVariables(fileProps, executor, this.osPlatform());
 
       //I will set the terminal (to open the terminal default)
       const terminals = vscode.window.terminals;
@@ -234,39 +232,40 @@ export class RunManager implements vscode.Disposable {
         ? terminals[0]
         : vscode.window.createTerminal("NewTerm"); // the first terminal will execute our output or new terminal will be created
 
-      }
-      
-      //! the file below is important i have commented them for a while
-      
-      if(this.terminal === undefined 
-        || this.terminal === null) {
-          // vscode.window.showInformationMessage("Please set the terminal!!");
-          this.terminal = vscode.window.createTerminal("Code");
-        }
-      
-        // console.log("os of the platform is: ",this.osPlatform());
-        // console.log("terminal: ",this.terminal)
-      //   if(this.terminal == undefined || this.terminal==null)
-      //  {
-      //   vscode.window.createTerminal("NewTerm");
-      //   console.log("terminal: ",this.terminal);
-      //  }
+    }
+
+    //! the file below is important i have commented them for a while
+
+    if (this.terminal === undefined
+      || this.terminal === null) {
+      // vscode.window.showInformationMessage("Please set the terminal!!");
+      this.terminal = vscode.window.createTerminal("Code");
+    }
+
+    // console.log("os of the platform is: ",this.osPlatform());
+    // console.log("terminal: ",this.terminal)
+    //   if(this.terminal == undefined || this.terminal==null)
+    //  {
+    //   vscode.window.createTerminal("NewTerm");
+    //   console.log("terminal: ",this.terminal);
+    //  }
     // this.terminal = null;
 
-        
-       (this.terminal || this.terminal !== undefined)? this.terminal.show(true):vscode.window.showErrorMessage("Something went wrong will generating output at terminal");
+
+    (this.terminal || this.terminal !== undefined) ? this.terminal.show(true) : vscode.window.showErrorMessage("Something went wrong will generating output at terminal");
 
 
-       const ext = path.extname(path.basename(this.document.fileName));
+    const ext = path.extname(path.basename(this.document.fileName));
 
 
-       
 
-       
+
+    //! Excatly here I have to build the feature for updating the PowerShell version
+
     //finally the command will be written on the terminal
 
 
-    
+
     this.terminal.sendText(executor, appendFile);
 
     // if(!this.showOutputOnOutputChannel)
@@ -276,18 +275,18 @@ export class RunManager implements vscode.Disposable {
     //   this.runFromTheOutputChannel(executor,ext);
     // }
 
-    
+
 
     this.isRunning = false;
 
 
-       //now cretaing the progress bar like thing
+    //now cretaing the progress bar like thing
 
-     
+
     //   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
 
     //   statusBarItem.text = 'Progress 0%';
-      
+
     //   function updateProgress(progress: number) {
     //     statusBarItem.text = `Progress: ${progress}%`;
     //     statusBarItem.show();
@@ -302,33 +301,32 @@ export class RunManager implements vscode.Disposable {
     fileNameWithoutExt: string;
     dir: string;
     workSpace: string;
-    fileNameWithDir:string;
-  },executor:string,platform:string)
-   {
-      //* here I am checking that whether this patterns match in the overall executor string
+    fileNameWithDir: string;
+  }, executor: string, platform: string) {
+    //* here I am checking that whether this patterns match in the overall executor string
 
-      const varCheckerAndReplace=[
-        {variable:/\@dir/g ,replaceStatement:fileProps.dir},
-        {variable:/\@fileNameWithDir/g ,replaceStatement:fileProps.fileNameWithDir},
-        {variable:/\@fileNameWithoutExt/g ,replaceStatement:fileProps.fileNameWithoutExt},
-        {variable:/\@workSpace/g ,replaceStatement:fileProps.workSpace},
-        {variable:/\@fileName/g ,replaceStatement:fileProps.fileName},
-      ];
+    const varCheckerAndReplace = [
+      { variable: /\@dir/g, replaceStatement: fileProps.dir },
+      { variable: /\@fileNameWithDir/g, replaceStatement: fileProps.fileNameWithDir },
+      { variable: /\@fileNameWithoutExt/g, replaceStatement: fileProps.fileNameWithoutExt },
+      { variable: /\@workSpace/g, replaceStatement: fileProps.workSpace },
+      { variable: /\@fileName/g, replaceStatement: fileProps.fileName },
+    ];
 
-      
-      for(const keys of varCheckerAndReplace)
-      {
-        executor = executor.replace(keys.variable, keys.replaceStatement); 
-      }
-    
 
-      return executor;
+    for (const keys of varCheckerAndReplace) {
+      executor = executor.replace(keys.variable, keys.replaceStatement);
+    }
+
+
+    return executor;
   }
 
-  private osPlatform()
-  {
+  private osPlatform() {
     return os.platform();
   }
+
+
 
   // private runFromTheOutputChannel(executor:string,ext:string)
   // {
@@ -356,7 +354,7 @@ export class RunManager implements vscode.Disposable {
   //     }
 
 
-    
+
 
 
   //   const output_ = vscode.window.createOutputChannel(`Output.${languageId}`,languageId);
@@ -367,29 +365,15 @@ export class RunManager implements vscode.Disposable {
   // }
 
   // this is of no use kindly ignore it
-  public dispose():void
-  {
+  public dispose(): void {
     console.log("RunManager disposed");
   }
 
 }
 
 
-//! problems
-
-//1. the name is not comming with the string literals ("") [done]
-//2. regex match problem [done]
-
-
-
 
 //! why micromatch over minimatch and the vscode.languages.match?
 
 // * micromatch (advance and can able to handle complex search) > minimatch
-
-// vscoded's api  provides the number of matched files
-
-
-//darwin - for macOs  
-
 
