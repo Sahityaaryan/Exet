@@ -13,8 +13,7 @@ Just hit ctrl+1
 # Tutorials
  - [Complete setup (English)](https://www.youtube.com/watch?v=NzduTSxpZ6Y)
  - [Complete setup (Hindi)](https://www.youtube.com/watch?v=XpYY_aEnbJQ)
-
-
+ - **Note**: There is no need of doing anything new for the `windows user as well` 😃 as **`described in the tutorial`**, just hit `ctrl+1`. 
 
 ## Features
 
@@ -29,7 +28,6 @@ Just hit ctrl+1
 
 ## Requirements
 
-- To use powershell for the running the scripts it must be of version 7 or newer.
 - To run typescript you must have typescript compiler in your system `tsc`
 
 ## Extension Settings
@@ -56,9 +54,11 @@ The extension will manage the executables of all the files inside the folder
 
 Added feature: The extension will manage the executables of all the file inside the root directory only
 
-### 1.1.1
+### 1.2.5
 
----
+Added feature: Now the source files can run over the windows system as well without doing any extra work
+
+
 
 ## What I have not included
 
@@ -85,5 +85,15 @@ You can author your README using Visual Studio Code. Here are some useful editor
 
 * [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
 * [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+
+
+## Connect:
+
+* [Github](https://github.com/Sahityaaryan)
+* [LinkedIn](https://www.linkedin.com/in/sahityaaryan/)
+
+## Note:
+
+* If you liked it then please consider putting reviews and ratings on it. It will help a lot to improve the extension.
 
 **Enjoy!**
