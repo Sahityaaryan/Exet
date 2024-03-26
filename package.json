@@ -61,7 +61,7 @@
                 ".java":"cd @workSpace; if (-not (Test-Path 'exetClasses')) { New-Item -ItemType Directory -Path 'exetClasses' | Out-Null }; cd @dir; javac -d @workSpace\\exetClasses @fileName; java -classpath @workSpace\\exetClasses @fileNameWithoutExt",
                 ".c": " cd @workSpace; if (-not (Test-Path 'exetFiles')) { New-Item -ItemType Directory -Path 'exetFiles' | Out-Null };  cd @dir; gcc @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt; @workSpace\\exetFiles\\@fileNameWithoutExt",
                 ".js": "node @fileNameWithDir",
-                ".ts": "cd @workSpace && (if not exist exetEmittedJsFiles mkdir exetEmittedJsFiles) & cd @dir && tsc @fileName --outDir @workSpace\\exetEmittedJsFiles && node @workSpace\\exetEmittedJsFiles\\@fileNameWithoutExt.js"
+                ".ts": "cd @workSpace; if (-not (Test-Path 'exetEmittedJsFiles')) { New-Item -ItemType Directory -Path 'exetEmittedJsFiles' | Out-Null };cd @dir; tsc @fileName --outDir @workSpace/exetEmittedJsFiles; node @workSpace/exetEmittedJsFiles/@fileNameWithoutExt.js"
               }
             },
             "description": "This is the executor map which run appropriate execution commands for the corresponding extension name"
