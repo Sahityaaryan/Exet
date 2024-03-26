@@ -10,6 +10,11 @@ This will create a separate folder for all the executable files of a particualr 
 # How to run it?
 Just hit ctrl+1 (windows || linux) , cmd+1 (mac)
 
+
+# Preview
+
+<div style="padding:52.4% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/927382263?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Exet extensions preview"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
 # Tutorials
  - [Complete setup (English)](https://www.youtube.com/watch?v=NzduTSxpZ6Y)
  - [Complete setup (Hindi)](https://www.youtube.com/watch?v=XpYY_aEnbJQ)
