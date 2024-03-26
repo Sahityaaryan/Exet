@@ -8,7 +8,7 @@ or .class files (in java) or .js files (in Ts).
 This will create a separate folder for all the executable files of a particualr language and executable files of any file in any folder inside the workspace will be stored in this folder and will execute smoothly
 
 # How to run it?
-Just hit ctrl+1 (windows || linux) , cmd+1 (mac)
+Just hit ctrl+1
 
 
 # Preview
