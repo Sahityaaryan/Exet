@@ -3,7 +3,7 @@
   "displayName": "Exet",
   "publisher": "sahityaaryan",
   "description": "This extension will help the coders and programmers to manage the executable files at one place and hence make there workspace clear and consistent",
-  "version": "1.2.9",
+  "version": "1.3.0",
   "icon": "images/Exet_logo_2.png",
   "engines": {
     "vscode": "^1.85.0"
@@ -57,12 +57,14 @@
                 ".ts": "cd @workSpace && ([[ ! -d exetEmittedJsFiles ]] & mkdir -p exetEmittedJsFiles) && cd @dir && tsc @fileName --outDir @workSpace/exetEmittedJsFiles && node @workSpace/exetEmittedJsFiles/@fileNameWithoutExt.js"
               },
               "win32": {
-                ".cpp": "cd @workSpace; if (-not (Test-Path 'exetFiles')) { New-Item -ItemType Directory -Path 'exetFiles' | Out-Null }; cd @dir && g++ @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt && @workSpace\\exetFiles\\@fileNameWithoutExt",
+                ".cpp": "cd @workSpace; if (-not (Test-Path 'exetFiles')) { New-Item -ItemType Directory -Path 'exetFiles' | Out-Null }; cd @dir; g++ @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt; @workSpace\\exetFiles\\@fileNameWithoutExt",
                 ".java":"cd @workSpace; if (-not (Test-Path 'exetClasses')) { New-Item -ItemType Directory -Path 'exetClasses' | Out-Null }; cd @dir; javac -d @workSpace\\exetClasses @fileName; java -classpath @workSpace\\exetClasses @fileNameWithoutExt",
                 ".c": " cd @workSpace; if (-not (Test-Path 'exetFiles')) { New-Item -ItemType Directory -Path 'exetFiles' | Out-Null };  cd @dir; gcc @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt; @workSpace\\exetFiles\\@fileNameWithoutExt",
                 ".js": "node @fileNameWithDir",
                 ".ts": "cd @workSpace; if (-not (Test-Path 'exetEmittedJsFiles')) { New-Item -ItemType Directory -Path 'exetEmittedJsFiles' | Out-Null };cd @dir; tsc @fileName --outDir @workSpace/exetEmittedJsFiles; node @workSpace/exetEmittedJsFiles/@fileNameWithoutExt.js"
               }
+
+
             },
             "description": "This is the executor map which run appropriate execution commands for the corresponding extension name"
           },
