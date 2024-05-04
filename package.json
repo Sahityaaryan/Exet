@@ -3,7 +3,7 @@
   "displayName": "Exet",
   "publisher": "sahityaaryan",
   "description": "This extension will help the coders and programmers to manage the executable files at one place and hence make there workspace clear and consistent",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "icon": "images/Exet_logo_2.png",
   "engines": {
     "vscode": "^1.85.0"

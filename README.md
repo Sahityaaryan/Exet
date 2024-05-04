@@ -11,10 +11,6 @@ This will create a separate folder for all the executable files of a particualr 
 Just hit `ctrl+1` 
 
 
-# Preview
-
-<div style="padding:52.4% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/927382263?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Exet extensions preview"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
-
 # Tutorials
  - [Complete setup (English)](https://www.youtube.com/watch?v=NzduTSxpZ6Y)
  - [Complete setup (Hindi)](https://www.youtube.com/watch?v=XpYY_aEnbJQ)
@@ -72,6 +68,16 @@ Added feature: Now the source files can run over the windows system as well with
 - SheBang support
 - Run by language
 
+## Connect:
+
+* [Github](https://github.com/Sahityaaryan)
+* [LinkedIn](https://www.linkedin.com/in/sahityaaryan/)
+
+## Note:
+
+* If you liked it then please consider putting reviews and ratings on it. It will help a lot to improve the extension.
+
+
 ## Following extension guidelines
 
 Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
@@ -91,14 +97,5 @@ You can author your README using Visual Studio Code. Here are some useful editor
 * [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
 * [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
-
-## Connect:
-
-* [Github](https://github.com/Sahityaaryan)
-* [LinkedIn](https://www.linkedin.com/in/sahityaaryan/)
-
-## Note:
-
-* If you liked it then please consider putting reviews and ratings on it. It will help a lot to improve the extension.
 
 **Enjoy!**
