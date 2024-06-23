@@ -18,8 +18,8 @@ Just hit `ctrl+1`
 
 ## Features
 
-1. Handles the exe files for the cpp and c langauge in a single folder "exetFiles" so that your workspace will look clear and consistent
-2. Handles the class files for the java langauge in a single folder "exetClasses" so that your workspace will look clear and consistent
+1. Handles the exe files for the C++ and C langauge in a single folder "exetFiles" so that your workspace will look clear and consistent
+2. Handles the class files for the Java langauge in a single folder "exetClasses" so that your workspace will look clear and consistent
 3. Handles the emittedJs files for the typescript in a single folder "exetEmittedJsFiles" to make your workspace clear and consistent
 4. Run code per filename
 5. Support REPL by running code in Integrated Terminal (default)
@@ -38,28 +38,6 @@ This extension contributes the following settings:
 * `exet.enable`: Enable/disable this extension.
 * `exet.executorMap`: Executor map to map the extension name with the requrire execution command.
 * `exet.extensionNameMapByLanaguageId`: This is to map the extension name with the corresponding languageId.
-
-## Known Issues
-
-- If your a windows user then prefer using command prompt or if want to use powershell then update your powershell to 7 or newer version 
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-The extension will manage the executables of all the files inside the folder
-
-### 1.1.0
-
-Added feature: The extension will manage the executables of all the file inside the root directory only
-
-### 1.2.5
-
-Added feature: Now the source files can run over the windows system as well without doing any extra work
-
-
 
 ## What I have not included
 
