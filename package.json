@@ -48,26 +48,24 @@
                 ".c": "cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && gcc @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
                 ".js": " node @fileNameWithDir",
                 ".ts": "cd @workSpace && ([[ ! -d exetEmittedJsFiles ]] & mkdir -p exetEmittedJsFiles) && cd @dir && tsc @fileName --outDir @workSpace/exetEmittedJsFiles && node @workSpace/exetEmittedJsFiles/@fileNameWithoutExt.js",
-                ".py":"python3 @fileNameWithDir"
-            },
-            "darwin": {
+                ".py": "python3 @fileNameWithDir"
+              },
+              "darwin": {
                 ".cpp": "cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && g++ @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
                 ".java": "cd @workSpace && ([[ ! -d exetClasses ]] & mkdir -p exetClasses) && cd @dir && javac -d @workSpace/exetClasses @fileName && java -classpath @workSpace/exetClasses @fileNameWithoutExt",
                 ".c": "cd @workSpace && ([[ ! -d exetFiles ]] & mkdir -p exetFiles) && cd @dir && gcc @fileName -o @workSpace/exetFiles/@fileNameWithoutExt && @workSpace/exetFiles/@fileNameWithoutExt",
                 ".js": "node @fileNameWithDir",
                 ".ts": "cd @workSpace && ([[ ! -d exetEmittedJsFiles ]] & mkdir -p exetEmittedJsFiles) && cd @dir && tsc @fileName --outDir @workSpace/exetEmittedJsFiles && node @workSpace/exetEmittedJsFiles/@fileNameWithoutExt.js",
-                ".py":"python3 @fileNameWithDir"
-            },
-            "win32": {
-                ".cpp": "cd @workSpace && (if not exist exetFiles mkdir exetFiles) & cd @dir && g++ @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt && @workSpace\\exetFiles\\@fileNameWithoutExt",
-                "java": "cd @workSpace && (if not exist exetClasses mkdir exetClasses) && cd @dir && javac -d @workSpace\\exetClasses @fileName && java -classpath @workSpace\\exetClasses @fileNameWithoutExt",
-                ".c": "cd @workSpace && (if not exist exetFiles mkdir exetFiles) & cd @dir && gcc @fileName -o @workSpace\\exetFiles\\@fileNameWithoutExt && @workSpace\\exetFiles\\@fileNameWithoutExt",
-                ".js": "node @fileNameWithDir",
-                ".ts": "cd @workSpace && (if not exist exetEmittedJsFiles mkdir exetEmittedJsFiles) & cd @dir && tsc @fileName --outDir @workSpace\\exetEmittedJsFiles && node @workSpace\\exetEmittedJsFiles\\@fileNameWithoutExt.js",
-                ".py":"python @fileNameWithDir"
-            }
-
-
+                ".py": "python3 @fileNameWithDir"
+              },
+              "win32": {
+                ".cpp": "Set-Location '@workSpace'; if (-not (Test-Path exetFiles)) { New-Item -ItemType Directory -Name exetFiles | Out-Null }; Set-Location '@dir'; g++ '@fileName' -o \"@workSpace\\exetFiles\\@fileNameWithoutExt\"; if ($?) { Write-Host \"\"; & \"@workSpace\\exetFiles\\@fileNameWithoutExt\" }",
+                ".java": "Set-Location '@workSpace'; if (-not (Test-Path exetClasses)) { New-Item -ItemType Directory -Name exetClasses | Out-Null }; Set-Location '@dir'; javac -d \"@workSpace\\exetClasses\" '@fileName'; if ($?) { Write-Host \"\"; java -classpath \"@workSpace\\exetClasses\" @fileNameWithoutExt }",
+                ".c": "Set-Location '@workSpace'; if (-not (Test-Path exetFiles)) { New-Item -ItemType Directory -Name exetFiles | Out-Null }; Set-Location '@dir'; gcc '@fileName' -o \"@workSpace\\exetFiles\\@fileNameWithoutExt\"; if ($?) { Write-Host \"\"; & \"@workSpace\\exetFiles\\@fileNameWithoutExt\" }",
+                ".js": "node '@fileNameWithDir'",
+                ".ts": "Set-Location '@workSpace'; if (-not (Test-Path exetEmittedJsFiles)) { New-Item -ItemType Directory -Name exetEmittedJsFiles | Out-Null }; Set-Location '@dir'; tsc '@fileName' --outDir \"@workSpace\\exetEmittedJsFiles\"; if ($?) { Write-Host \"\"; node \"@workSpace\\exetEmittedJsFiles\\@fileNameWithoutExt.js\" }",
+                ".py": "python '@fileNameWithDir'"
+              }
             },
             "description": "This is the executor map which run appropriate execution commands for the corresponding extension name"
           },
